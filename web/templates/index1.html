@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	{% load static from staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %}" />
+
+	<script type="text/javascript" src="{% static "js/prefixfree.min.js" %}"></script>
+	<title>El medio con valor informativo | Somos Industria</title>
+</head>
+<body>
+{% include 'fb.html' %}
+
+	<header>
+		<div class="BannerTop">
+			<a href="http://somosindustria.com/Directorio.asp"><img src="{% static "img/bannerdirectorio1.jpg" %}" alt="Directorio de Proveedores" class="BannerTopImg" /></a><a href="http://somosindustria.com/RegDirProv.asp"><img src="{% static "img/bannerdirectorio2.jpg" %}" alt="Registro al Directorio de Proveedores" class="BannerTopImg" /></a>
+		</div>
+
+		{% include 'logo.html' %}
+	</header>
+
+	<nav>
+		Barra de Navegacion
+	</nav>
+
+	<footer>
+		Pie de Pagina
+	</footer>
+</body>
+</html>
