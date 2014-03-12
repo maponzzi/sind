@@ -1,9 +1,11 @@
 from django.contrib import admin
-from models import Tema, TipoArt, Articulo, TipoBanner, Banner
+from models import *
+#from models import Tema, TipoArt, Articulo, TipoBanner, Banner, Seccion
+#from sorl.thumbnail.admin import AdminImageMixin
 
 
 class ArticuloAdmin(admin.ModelAdmin):
-	exclude = ('Mes', 'Anio', 'Slug',)
+	exclude = ('Slug', 'Visitas',)
 	filter_horizontal = ('Temas',)
 
 

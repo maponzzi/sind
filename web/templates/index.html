@@ -1,21 +1,46 @@
+{% load static from staticfiles %}
+{% load thumbnail %}
+
 <!DOCTYPE html>
 <html lang="es" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-	{% load static from staticfiles %}
+	
 	<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/responsiveslides.css" %}" />
 	<link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/slides.css" %}" />
+	<link rel="stylesheet" type="text/css" href="static/css/devestilos.css" />
 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static "js/prefixfree.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/responsiveslides.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/slides.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/inicio.js" %}"></script>
+	
 	<title>El medio con valor informativo | Somos Industria</title>
+
+	<style type="text/css">
+
+
+	</style>
+
+	<script type="text/javascript">
+		
+	</script>
+	
 </head>
 <body>
 	{% include 'fb.html' %}
 
 	<header>
 		<div class="BannerTop">
-			<a href="http://somosindustria.com/Directorio.asp"><img src="{% static "img/bannerdirectorio1.jpg" %}" alt="Directorio de Proveedores" class="BannerTopImg" /></a><a href="http://somosindustria.com/RegDirProv.asp"><img src="{% static "img/bannerdirectorio2.jpg" %}" alt="Registro al Directorio de Proveedores" class="BannerTopImg" /></a>
+		{% for banner in banners %}
+			{% if banner.Tipo.id == 1 %}
+				<a href="{{ banner.Link }}"><img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="BannerTopImg" /></a>
+			{% endif %}
+		{% endfor %}
 		</div>
 
 		{% include 'logo.html' %}
@@ -43,7 +68,26 @@
 		</div>
 
 		<div class="ColSec Sec1Col1">
-			<div class="sub">
+			{% for port in articulos %}
+				{% if port.Tipo.id == 1 %}
+					<article class="sub">
+						<a class="atopbaner" href="{% url "articulo" port.Slug %}">
+							{{ port.Titulo }}
+						</a>
+						<div class="Anuncios">
+							<a class="AnunciosCon">
+								{{ port.Sumario }}
+							</a>
+						</div>
+						<div class="especialh2">
+							<a href="{% url "articulo" port.Slug %}">
+								<img src="{{ port.ImgPortada.url }}" alt="{{ port.Titulo }}" />
+							</a>
+						</div>
+					</article>
+				{% endif %}
+			{% endfor %}
+			<!-- <div class="sub">
 				<a class="atopbaner">
 					Invierten nuevas empresas en México
 				</a>
@@ -55,86 +99,57 @@
 				<div class="especialh2">
 					<img class="telefonon" src="http://www.somosindustria.mx/Ufo/U1.jpg" alt="Invierten Nuevas Empresas">
 				</div>
-			</div>
-			<div class="ram5">
-				<div class="l1">
-					<div class="l2">
-						<a class="atopbaner1">
-							3M Inagura centro en San Luis Potosi
+			</div> -->
+			<section class="Avances">
+			{% for avance in articulos %}
+				{% if avance.Tipo.id == 2 %}
+				<article class="Avance">
+					<div class="TitArtPort">
+						<a href="{% url "articulo" avance.Slug %}">
+							{{ avance.Titulo }}
 						</a>
 					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/3M.jpg" alt="3M Inaguro" class="fru">
-				</div>
-				<div class="l3">
-					<div class="l2">
-						<a class="atopbaner1">
-							Pirelli invierte 200 mdd mas
+
+					{% thumbnail avance.Img1.url "250x140" crop="center" as im %}
+						<a href="{% url "articulo" avance.Slug %}">
+							<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ avance.PieImg1 }}" />
 						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Pirelli.jpg" alt="Pirelli invierte" class="fru">
-				</div>
-				<div class="l6">
-					<div class="l2">
-						<a class="atopbaner1">
-							Invierte General Motors 691 mdd
-						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/GM.jpg" alt="GM Invierte" class="fru">
-				</div>
-				<div class="l3">
-					<div class="l2">
-						<a class="atopbaner1">
-							Lego invierte 125 mdd en ampliación
-						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Lego.jpg" alt="Lego invierte" class="fru">
-				</div>
+					{% empty %}
+						<p>Imagen no disponible</p>
+					{% endthumbnail %}
+				</article>
+				{% endif %}
+			{% endfor %}
 			</div>
 		</div>
 
 		<div class="ColSec Sec1Col2">
-			<div class="rar">
-				<div>
-					<a class="hom" id="1">
-						<img src="http://www.somosindustria.mx/Ufo/K2.jpg" id="11" alt="Boton1">
+			<div id="NavSlides"></div>
+			<ul class="rslides">
+			{% for banner in banners %}
+				{% if banner.Tipo.id == 2 %}
+				<li>
+					<a href="{{ banner.Link }}">
+						<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" />
 					</a>
-					<a class="hom" id="2">
-						<img src="http://www.somosindustria.mx/Ufo/K1.jpg" alt="Boton2" id="22">
-					</a>
-				</div>
-			</div>
-			<div id="pum" class="rest">
-				<img src="http://www.somosindustria.mx/Ufo/U2.jpg" alt="BannerMapas">
-				<div class="min1">
-					<img src="http://www.somosindustria.mx/Ufo/U5.jpg" alt="Mapa Queretaro">
-				</div>
-				<div class="min1">
-					<img src="http://www.somosindustria.mx/Ufo/U6.jpg" alt="Mapa Queretaro">
-				</div>
-				<div class="min1">
-					<img src="http://www.somosindustria.mx/Ufo/U7.jpg" alt="Mapa Queretaro">
-				</div>
-				<div class="min1">
-					<img src="http://www.somosindustria.mx/Ufo/U8.jpg" alt="Mapa Queretaro">
-				</div>
-				<div class="min1">
-					<img src="http://www.somosindustria.mx/Ufo/U3.jpg" alt="Mapa Queretaro">
-				</div>
-			</div>
-			<div class="best" id="pum2">
-				<img src="Img/Bole.png" alt="Somos Industria">
-			</div>
+				</li>
+				{% endif %}
+			{% endfor %}
+			</ul>
 		</div>
 
 		<div class="ColSec Sec1Col3">
-			<div class="BannerPub1">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/dickiesSIjunio13.gif" alt="P1">
+			<div class="ContPub1">
+				{% for banner in banners %}
+					{% if banner.Tipo.id == 3 %}
+						<div class="BannerPub1">
+							<a href="{{ banner.Link }}">
+								<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" />
+							</a>
+						</div>
+					{% endif %}
+				{% endfor %}
 			</div>
-			
-			<div class="BannerPub1">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/Herramental3.jpg" alt="P2">
-			</div>
-
 
 			<div class="ramT">
 				<div>
@@ -164,59 +179,64 @@
 
 	<section id="Sec2">
 		<div class="ColSec Sec2Col1">
-			<div class="closer">
-				<div class="aru">
-					<div class="lum0" id="AR3">
-						<div class="ars3">
-							<a class="las" id="ju3">
-								Horizonte Industrial
+			<div class="Secciones">
+				<div class="ContTitSecciones">
+				{% for titulo in secciones %}
+					<div id="{{ titulo.Tipo.Nombre|slugify }}" class="{% if forloop.first %}SeccionActivo{% else %}Seccion{% endif %}">
+						<span class="MargenTS">
+							{{ titulo.Tipo.Nombre }}
+						</span>
+					</div>
+				{% endfor %}
+				</div>
+
+				{% for seccion in secciones %}
+					<div id="C{{ seccion.Tipo.Nombre|slugify }}" class="InfSeccion" {% if forloop.first %}style="display:block"{% endif %}>
+						<div class="lluv" id="Ic1">
+							<a href="{% url "articulo" seccion.Slug %}" class="atopbaner2">
+								{{ seccion.Titulo }}
+							</a>
+						</div>
+						<div class="luc">
+						{% thumbnail seccion.Img1.url "250x140" crop="center" as im %}
+							<a href="{% url "articulo" seccion.Slug %}">
+								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ seccion.PieImg1 }}" />
+							</a>	
+						{% empty %}
+							<p>Imagen no disponible</p>
+						{% endthumbnail %}
+						</div>
+						<div class="sk">
+							<a class="AnunciosCon2">
+								{{ seccion.NotaComp|truncatewords:"30" }}
 							</a>
 						</div>
 					</div>
-					<div class="lum1" id="AR0">
-						<div class="ars">
-							<a class="las1" id="ju0">
-								Somos Exportadores
-							</a>
-						</div>
+				{% endfor %}
+				<!-- <div id="InfSeccion1" class="InfSeccion">
+					<div class="lluv" id="Ic1">
+						<a class="atopbaner2">
+							Fabrican empaques flexibles
+						</a>
 					</div>
-					<div class="lum1" id="AR1">
-						<div class="ars4">
-							<a class="las1" id="ju1">
-								Gente con Valor
-							</a>
-						</div>
+					<div class="luc">
+						<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Somos%20Exportadores.jpg" alt="Empaques Flexibles" class="fru2">
 					</div>
-					<div class="lum1" id="AR2">
-						<div class="ars2">
-							<a class="las1" id="ju2">
-								Salud
-							</a>
-						</div>
+					<div class="sk">
+						<a class="AnunciosCon2">
+							La empresa ubicada en el Parque Industrial FINSA, se dedica a la fabricación de diversos empaques flexibles de plástico, mismos que poseen una amplia gama de aplicaciones; desde empaque para líquidos como shampoo, limpiadores, salsas, polvo...
+						</a>
 					</div>
-				</div>
-				<div class="lluv" id="Ic1">
-					<a class="atopbaner2" id="oc1">
-						Fabrican empaques flexibles
-					</a>
-				</div>
-				<div class="luc">
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Somos%20Exportadores.jpg" alt="Empaques Flexibles" class="fru2" id="oc3">
-				</div>
-				<div class="sk">
-					<a class="AnunciosCon2" id="oc2">
-						La empresa ubicada en el Parque Industrial FINSA, se dedica a la fabricación de diversos empaques flexibles de plástico, mismos que poseen una amplia gama de aplicaciones; desde empaque para líquidos como shampoo, limpiadores, salsas, polvo...
-					</a>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="mid" id="Aski01">
 				<div class="lear">
-					<img src="{% static "img/L4.jpg" %}" alt="Somos Industria" class="surv2">
+					<img src="{% static "img/L4.jpg" %}" alt="Somos Industria" class="surv2" />
 					<div class="every">
 						<div class="break">
 							<a class="guru4">
-								Inversión
+								Articulos
 							</a>
 						</div>
 					</div>
@@ -287,7 +307,16 @@
 	<aside id="Pub2">
 		<div class="fat">
 			<div class="share">
-				<div class="bug">
+			{% for banner in banners %}
+				{% if banner.Tipo.id == 4 %}
+					<div class="bug">
+						<a href="{{ banner.Link }}">
+							<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="lu" />
+						</a>
+					</div>
+				{% endif %}
+			{% endfor %}
+				<!-- <div class="bug">
 					<img src="http://www.somosindustria.com/Imagenes/Clientes/Suntak.jpg" alt="Publicidad Media1" class="lu">
 				</div>
 				<div class="bug">
@@ -301,7 +330,7 @@
 				</div>
 				<div class="bug">
 					<img src="http://somosindustria.com/Imagenes/Clientes/Promexico.gif" alt="Publicidad Media5" class="lu">
-				</div>
+				</div> -->
 			</div>
 			<div class="dongo">
 				<div class="papa">
@@ -338,7 +367,7 @@
 			<div class="every156">
 				<div class="break">
 					<a class="guru4">
-						Industria
+						Inversión
 					</a>
 				</div>
 			</div>
@@ -480,7 +509,16 @@
 	</section>
 
 	<aside id="Pub3">
-		<div>
+		{% for banner in banners %}
+			{% if banner.Tipo.id == 5 %}
+				<div>
+					<a href="banner.Link">
+						<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="alu" />
+					</a>
+				</div>
+			{% endif %}
+		{% endfor %}
+<!-- 		<div>
 			<a href="#">
 				<img src="http://www.somosindustria.mx/Ufo/Prozone.jpg" alt="P1" class="alu" />
 			</a>
@@ -514,7 +552,7 @@
 			<a href="#">
 				<img src="http://www.somosindustria.com/Imagenes/Clientes/Basculas.jpg" alt="P1" class="alu" />
 			</a>
-		</div>
+		</div> -->
 	</aside>
 
 	{% include 'footer.html' %}

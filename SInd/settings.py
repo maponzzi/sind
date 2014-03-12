@@ -1,4 +1,5 @@
 # Django settings for SInd project.
+import os
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -14,12 +15,13 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'SIndDB',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'postgres',
-        'PASSWORD': 'mity3685',
+        'USER': 'SIndUs',
+        'PASSWORD': 'mititin3685',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '5432',                      # Set to empty string for default.
     }
 }
+
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -29,11 +31,11 @@ ALLOWED_HOSTS = ['*']
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Monterrey'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-mx'
 
 SITE_ID = 1
 
@@ -55,13 +57,13 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-import os
+
 STATIC_ROOT = os.sep.join(os.path.abspath(__file__).split(os.sep)[:-2] + ['static'])
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
@@ -123,7 +125,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
-    'south',
+    #'south',
+    'sorl.thumbnail',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
@@ -159,8 +162,36 @@ LOGGING = {
     }
 }
 
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'web.context_processors.Edicion',
+)
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'localhost:6379',
+        'OPTIONS': {
+            'DB': 1,
+            # 'PASSWORD': ''
+            'PARSER_CLASS': 'redis.connection.HiredisParser'
+        }
+    }
+}
+
+
+THUMBNAIL_DEBUG = True
+THUMBNAIL_FORMAT = 'PNG'
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
+THUMBNAIL_REDIS_HOST = 'localhost'
+THUMBNAIL_REDIS_PORT = 6379
+
+
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_ACCESS_KEY_ID = 'AKIAIAB6U6S3IY3FILPQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'sind'

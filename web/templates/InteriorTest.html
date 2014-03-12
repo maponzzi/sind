@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<title>Prueba</title>
+</head>
+<body>
+	
+	{% for Art in articulo %}
+		<section>
+			<div>{{ Art.Titulo }}</div>
+			<div>{{ Art.Sumario }}</div>
+			<div>{{ Art.NotaComp }}</div>
+		</section>
+	{% endfor %}
+	
+</body>
+</html>

@@ -1,18 +1,177 @@
+{% load static from staticfiles %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
 	<meta charset="utf-8" />
-	<title>Prueba</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/slides.css" %}" />
+	<link rel="stylesheet" type="text/css" href="/static/css/devestilos.css" />
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static "js/prefixfree.min.js" %}"></script>
+
+	<title>{{ articulo.0.Titulo }}</title>
+
 </head>
 <body>
-	
-	{% for Art in articulo %}
-		<section>
-			<div>{{ Art.Titulo }}</div>
-			<div>{{ Art.Sumario }}</div>
-			<div>{{ Art.NotaComp }}</div>
-		</section>
-	{% endfor %}
-	
+	{% include 'fb.html' %}
+
+	<header>
+		<div class="BannerTop">
+		{% for banner in banners %}
+			{% if banner.Tipo.id == 6 %}
+				<a href="{{ banner.Link }}"><img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="BannerTopImg" /></a>
+			{% endif %}
+		{% endfor %}
+		</div>
+
+		{% include 'logo.html' %}
+	</header>
+
+	{% include 'menu.html' %}
+
+	<section id="SecArt">
+		<div class="ContBusq" id="sum">
+			<div class="top">
+				<img src="{% static "img/X1.jpg" %}" alt="Somos Industria" class="special">
+			</div>
+			<div class="membr">
+				<div class="alum">
+					<a class="atopbaner1435">Búsqueda</a>
+					<div id="job" class="sucks">
+						<img src="{% static "img/X.jpg" %}" alt="Somos Industria">
+					</div>
+				</div>
+				<div class="aret">
+					<input type="text" class="ung">
+					<input type="submit" class="umi" value="Buscar">
+				</div>
+			</div>
+		</div>
+
+		<article>
+			<h1 class="TituloNota">
+				{{ articulo.0.Titulo }}
+			</h1>
+
+			<h2 class="Sumario">
+				{{ articulo.0.Sumario }}
+			</h2>
+
+			<div class="Editor">
+				{{ articulo.0.Editor }}
+			</div>
+
+			<div class="TextoCompleto">
+				<div class="ImgArticulo">
+					<figure>
+						<img src="{{ articulo.0.Img1.url }}" />
+						<figcaption>
+							{{ articulo.0.PieImg1 }}
+						</figcaption>
+					</figure>
+
+					{% if articulo.0.PieImg2 %}
+						<figure>
+							<img src="{{ articulo.0.Img2.url }}" />
+							<figcaption>
+								{{ articulo.0.PieImg2 }}
+							</figcaption>
+						</figure>
+					{% endif %}
+				</div>
+
+				{{ articulo.0.NotaComp|linebreaks }}
+
+			</div>
+		</article>
+
+	</section>
+
+	<section id="SecArtDer" class="">
+		<div class="Temas">
+			{{ articulo.0.Creado|date:"F Y" }}
+		</div>
+		{% for tema in articulo.0.Temas.all %}
+			<div class="Temas">
+				{{ tema.Nombre }}
+			</div>
+		{% endfor %}
+		
+		<div class="Compartir">
+			Compartir Articulo
+			<div class="BandCompartir">
+				<img src="{% static "img/L3.jpg" %}" alt="Decorador">
+			</div>
+		</div>
+		
+		<div>
+			<div>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-via="twitterapi" data-lang="en">
+					Tweet
+				</a>
+			</div>
+			<div style="float:left; display:block; width:auto;" class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false"></div>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+			<div>
+			<div class="g-plusone" data-size="medium" data-annotation="none" data-width="300" style="float:left; display:block; width:auto;"><script type="text/javascript"> (function(){var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true; po.src = 'https://apis.google.com/js/plusone.js'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s); })();</script>
+			</div>
+			<div id="linkedinshare" style="float:left; display:block; width:auto; padding-right:15px;">
+				<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-counter="left"></script>
+			</div><!-- </div> -->
+		</div>	
+
+		<div class="inmed">
+			<div class="hort3">
+				<a class="noo2">
+					Articulos relacionados
+				</a>
+			</div>
+			<div class="morning2">
+				<img src="{% static "img/B2.jpg" %}" alt="Somos Industria" />
+			</div>
+
+			<div class="alumu">
+				<div>
+					<a class="atopbaner1500"> 
+						*/ TITULO DE 1 ARTICULO RELACIONADO/* 
+					</a>
+				</div>
+				<div>
+					<img src=" IMAGEN DE ARTICULO RELACIONADO " class="tere" />
+				</div>
+			</div>
+		</div>
+
+		<div class="inmed">
+			<div class="hort2">
+				<a class="noo2">
+					Articulos mas vistos
+				</a>
+			</div>
+			<div class="morning2">
+				<img src="{% static "img/B1.jpg" %}" alt="Somos Industria">
+			</div>
+			
+			<div class="alumu">
+				<div>
+					<a class="atopbaner1500">
+						*/ TITULO DE 1 ARTICULO MAS VISTO /*
+					</a>
+				</div>
+				<div>
+					<img src="<!-- IMAGEN DE ARTICULO MAS VISTO -->" class="tere">
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+
+
+	{% include 'footer.html' %}
 </body>
 </html>
