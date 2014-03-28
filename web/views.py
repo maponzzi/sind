@@ -10,13 +10,9 @@ def home(request):
 	anio = fecha.year
 	template = "index.html"
 	banners = models.Banner.objects.order_by('pk')
-	articulos = models.Articulo.objects.filter(Mes=mes, Anio=anio)
-	secciones = models.Articulo.objects.filter(Tipo__Sub=4, Stt=True)
+	articulos = models.Articulo.objects.filter(mes=mes, anio=anio)
+	secciones = models.Articulo.objects.filter(tipo__sub=4, stt=True).order_by('orden')
 
-	# for art in articulos:
-	# 	if art.Tipo == 1:
-	# 		TemaPrinc = {}
-	# endfor
 
 	Principal = {"banners": banners, }
 	return render(request, template, locals())
@@ -24,11 +20,11 @@ def home(request):
 
 class ArticuloView(TemplateView):
 	model = models.Articulo
-	template_name = "Interior.html"
+	template_name = "interior.html"
 
 	def get_context_data(self, **kwargs):
 		context = super(ArticuloView, self).get_context_data(**kwargs)
-		context['articulo'] = self.model.objects.filter(Slug=context['slug'])
+		context['articulo'] = self.model.objects.filter(slug=context['slug'])
 		return context
 
 

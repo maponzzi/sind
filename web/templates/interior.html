@@ -54,37 +54,37 @@
 
 		<article>
 			<h1 class="TituloNota">
-				{{ articulo.0.Titulo }}
+				{{ articulo.0.titulo }}
 			</h1>
 
 			<h2 class="Sumario">
-				{{ articulo.0.Sumario }}
+				{{ articulo.0.sumario }}
 			</h2>
 
 			<div class="Editor">
-				{{ articulo.0.Editor }}
+				{{ articulo.0.editor }}
 			</div>
 
 			<div class="TextoCompleto">
 				<div class="ImgArticulo">
 					<figure>
-						<img src="{{ articulo.0.Img1.url }}" />
+						<img src="{{ articulo.0.img1.url }}" />
 						<figcaption>
-							{{ articulo.0.PieImg1 }}
+							{{ articulo.0.pieimg1 }}
 						</figcaption>
 					</figure>
 
-					{% if articulo.0.PieImg2 %}
+					{% if articulo.0.pieimg2 %}
 						<figure>
-							<img src="{{ articulo.0.Img2.url }}" />
+							<img src="{{ articulo.0.img2.url }}" />
 							<figcaption>
-								{{ articulo.0.PieImg2 }}
+								{{ articulo.0.pieimg2 }}
 							</figcaption>
 						</figure>
 					{% endif %}
 				</div>
 
-				{{ articulo.0.NotaComp|linebreaks }}
+				{{ articulo.0.contenido|linebreaks }}
 
 			</div>
 		</article>
@@ -93,11 +93,11 @@
 
 	<section id="SecArtDer" class="">
 		<div class="Temas">
-			{{ articulo.0.Creado|date:"F Y" }}
+			{{ articulo.0.creado|date:"F Y" }}
 		</div>
-		{% for tema in articulo.0.Temas.all %}
+		{% for tema in articulo.0.temas.all %}
 			<div class="Temas">
-				{{ tema.Nombre }}
+				{{ tema.nombre }}
 			</div>
 		{% endfor %}
 		

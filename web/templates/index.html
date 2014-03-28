@@ -37,8 +37,8 @@
 	<header>
 		<div class="BannerTop">
 		{% for banner in banners %}
-			{% if banner.Tipo.id == 1 %}
-				<a href="{{ banner.Link }}"><img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="BannerTopImg" /></a>
+			{% if banner.tipo.id == 1 %}
+				<a href="{{ banner.link }}"><img src="{{ banner.img.url }}" alt="{{ banner.alt }}" class="BannerTopImg" /></a>
 			{% endif %}
 		{% endfor %}
 		</div>
@@ -69,50 +69,38 @@
 
 		<div class="ColSec Sec1Col1">
 			{% for port in articulos %}
-				{% if port.Tipo.id == 1 %}
+				{% if port.tipo.id == 1 %}
 					<article class="sub">
-						<a class="atopbaner" href="{% url "articulo" port.Slug %}">
-							{{ port.Titulo }}
+						<a class="atopbaner" href="{% url "articulo" port.slug %}">
+							{{ port.titulo }}
 						</a>
 						<div class="Anuncios">
 							<a class="AnunciosCon">
-								{{ port.Sumario }}
+								{{ port.sumario }}
 							</a>
 						</div>
 						<div class="especialh2">
-							<a href="{% url "articulo" port.Slug %}">
-								<img src="{{ port.ImgPortada.url }}" alt="{{ port.Titulo }}" />
+							<a href="{% url "articulo" port.slug %}">
+								<img src="{{ port.imgportada.url }}" alt="{{ port.titulo }}" />
 							</a>
 						</div>
 					</article>
 				{% endif %}
 			{% endfor %}
-			<!-- <div class="sub">
-				<a class="atopbaner">
-					Invierten nuevas empresas en México
-				</a>
-				<div class="Anuncios">
-					<a class="AnunciosCon">
-						Compañias tanto extranjeras como nacionales tienen presencia por primera vez en el país y otras tantas crecen sus operaciones ya existentes.
-					</a>
-				</div>
-				<div class="especialh2">
-					<img class="telefonon" src="http://www.somosindustria.mx/Ufo/U1.jpg" alt="Invierten Nuevas Empresas">
-				</div>
-			</div> -->
+			
 			<section class="Avances">
 			{% for avance in articulos %}
-				{% if avance.Tipo.id == 2 %}
+				{% if avance.tipo.id == 2 %}
 				<article class="Avance">
 					<div class="TitArtPort">
-						<a href="{% url "articulo" avance.Slug %}">
-							{{ avance.Titulo }}
+						<a href="{% url "articulo" avance.slug %}">
+							{{ avance.titulo }}
 						</a>
 					</div>
 
-					{% thumbnail avance.Img1.url "250x140" crop="center" as im %}
-						<a href="{% url "articulo" avance.Slug %}">
-							<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ avance.PieImg1 }}" />
+					{% thumbnail avance.img1.url "250x140" crop="center" as im %}
+						<a href="{% url "articulo" avance.slug %}">
+							<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ avance.pieimg1 }}" />
 						</a>
 					{% empty %}
 						<p>Imagen no disponible</p>
@@ -127,10 +115,10 @@
 			<div id="NavSlides"></div>
 			<ul class="rslides">
 			{% for banner in banners %}
-				{% if banner.Tipo.id == 2 %}
+				{% if banner.tipo.id == 2 %}
 				<li>
-					<a href="{{ banner.Link }}">
-						<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" />
+					<a href="{{ banner.link }}">
+						<img src="{{ banner.img.url }}" alt="{{ banner.alt }}" />
 					</a>
 				</li>
 				{% endif %}
@@ -141,10 +129,10 @@
 		<div class="ColSec Sec1Col3">
 			<div class="ContPub1">
 				{% for banner in banners %}
-					{% if banner.Tipo.id == 3 %}
+					{% if banner.tipo.id == 3 %}
 						<div class="BannerPub1">
-							<a href="{{ banner.Link }}">
-								<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" />
+							<a href="{{ banner.link }}">
+								<img src="{{ banner.img.url }}" alt="{{ banner.alt }}" />
 							</a>
 						</div>
 					{% endif %}
@@ -182,25 +170,25 @@
 			<div class="Secciones">
 				<div class="ContTitSecciones">
 				{% for titulo in secciones %}
-					<div id="{{ titulo.Tipo.Nombre|slugify }}" class="{% if forloop.first %}SeccionActivo{% else %}Seccion{% endif %}">
+					<div id="{{ titulo.tipo.nombre|slugify }}" class="{% if forloop.first %}SeccionActivo{% else %}Seccion{% endif %}">
 						<span class="MargenTS">
-							{{ titulo.Tipo.Nombre }}
+							{{ titulo.tipo.nombre }}
 						</span>
 					</div>
 				{% endfor %}
 				</div>
 
 				{% for seccion in secciones %}
-					<div id="C{{ seccion.Tipo.Nombre|slugify }}" class="InfSeccion" {% if forloop.first %}style="display:block"{% endif %}>
+					<div id="C{{ seccion.tipo.nombre|slugify }}" class="InfSeccion" {% if forloop.first %}style="display:block"{% endif %}>
 						<div class="lluv" id="Ic1">
-							<a href="{% url "articulo" seccion.Slug %}" class="atopbaner2">
-								{{ seccion.Titulo }}
+							<a href="{% url "articulo" seccion.slug %}" class="atopbaner2">
+								{{ seccion.titulo }}
 							</a>
 						</div>
 						<div class="luc">
-						{% thumbnail seccion.Img1.url "250x140" crop="center" as im %}
-							<a href="{% url "articulo" seccion.Slug %}">
-								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ seccion.PieImg1 }}" />
+						{% thumbnail seccion.img1.url "250x140" crop="center" as im %}
+							<a href="{% url "articulo" seccion.slug %}">
+								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ seccion.pieimg1 }}" />
 							</a>	
 						{% empty %}
 							<p>Imagen no disponible</p>
@@ -208,26 +196,11 @@
 						</div>
 						<div class="sk">
 							<a class="AnunciosCon2">
-								{{ seccion.NotaComp|truncatewords:"30" }}
+								{{ seccion.contenido|truncatewords:"30" }}
 							</a>
 						</div>
 					</div>
 				{% endfor %}
-				<!-- <div id="InfSeccion1" class="InfSeccion">
-					<div class="lluv" id="Ic1">
-						<a class="atopbaner2">
-							Fabrican empaques flexibles
-						</a>
-					</div>
-					<div class="luc">
-						<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Somos%20Exportadores.jpg" alt="Empaques Flexibles" class="fru2">
-					</div>
-					<div class="sk">
-						<a class="AnunciosCon2">
-							La empresa ubicada en el Parque Industrial FINSA, se dedica a la fabricación de diversos empaques flexibles de plástico, mismos que poseen una amplia gama de aplicaciones; desde empaque para líquidos como shampoo, limpiadores, salsas, polvo...
-						</a>
-					</div>
-				</div> -->
 			</div>
 
 			<div class="mid" id="Aski01">
@@ -308,10 +281,10 @@
 		<div class="fat">
 			<div class="share">
 			{% for banner in banners %}
-				{% if banner.Tipo.id == 4 %}
+				{% if banner.tipo.id == 4 %}
 					<div class="bug">
-						<a href="{{ banner.Link }}">
-							<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="lu" />
+						<a href="{{ banner.link }}">
+							<img src="{{ banner.img.url }}" alt="{{ banner.alt }}" class="lu" />
 						</a>
 					</div>
 				{% endif %}
@@ -510,7 +483,7 @@
 
 	<aside id="Pub3">
 		{% for banner in banners %}
-			{% if banner.Tipo.id == 5 %}
+			{% if banner.tipo.id == 5 %}
 				<div>
 					<a href="banner.Link">
 						<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="alu" />

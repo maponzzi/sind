@@ -1,0 +1,12 @@
+$ cat .gitignore
+
+.DS_Store
+
+# El archivo de documentación
+Doc
+
+# El archivo settings
+SInd/settings.py*
+
+*/migrations/
+

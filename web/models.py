@@ -5,70 +5,139 @@ from datetime import date
 from sorl.thumbnail import ImageField
 
 
-class Tema(models.Model):
-	Nombre = models.CharField(max_length=140, blank=True)
+class Estado(models.Model):
+	nombre = models.CharField(max_length=140, blank=True, null=True)
+	color = models.CharField(max_length=10, blank=True)
 
 	def __unicode__(self):
-		return self.Nombre
+		return self.nombre
+
+
+class Industria(models.Model):
+	edo = models.ForeignKey(Estado)
+	anio = models.SmallIntegerField(blank=True, null=True)
+	empresa = models.CharField(max_length=140, blank=True, null=True)
+	locacion = models.CharField(max_length=300, blank=True, null=True)
+	cd = models.CharField(max_length=60, blank=True, null=True)
+	superficie = models.IntegerField(blank=True, null=True)
+	sector = models.CharField(max_length=60, blank=True, null=True)
+	origen = models.CharField(max_length=60, blank=True, null=True)
+	Tipo = models.CharField(max_length=30, blank=True, null=True)
+
+	def __unicode__(self):
+		return self.empresa
+
+
+class Tema(models.Model):
+	nombre = models.CharField(max_length=140, blank=True)
+
+	def __unicode__(self):
+		return self.nombre
 
 
 class TipoArt(models.Model):
-	Nombre = models.CharField(max_length=50, blank=True)
-	Sub = models.SmallIntegerField(blank=True, null=True)
+	nombre = models.CharField(max_length=50, blank=True)
+	sub = models.SmallIntegerField(blank=True, null=True)
 
 	def __unicode__(self):
-		return "%i. %s" % (self.id, self.Nombre)
+		return "%i. %s" % (self.id, self.nombre)
 
 
 class Articulo(models.Model):
-	Titulo = models.CharField(max_length=300, unique=True, null=False)
-	Sumario = models.CharField(max_length=300, blank=True)
-	Editor = models.CharField(max_length=140, blank=True)
-	NotaComp = models.TextField(blank=True)
-	Cifras = models.TextField(blank=True)
-	Contacto = models.TextField(blank=True)
-	PieImg1 = models.CharField(max_length=255, blank=True)
-	PieImg2 = models.CharField(max_length=255, blank=True)
-	Img1 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
-	Img2 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
-	ImgPortada = models.ImageField(upload_to='img/portada/', blank=True, null=True)
-	Tipo = models.ForeignKey(TipoArt)
-	Orden = models.SmallIntegerField(default=0)
-	Mes = models.SmallIntegerField(blank=True, default=date.today().month)
-	Anio = models.SmallIntegerField(blank=True, default=date.today().year)
-	Slug = models.SlugField(max_length=255, blank=True)
-	Temas = models.ManyToManyField(Tema)
-	Creado = models.DateTimeField(auto_now_add=True)
-	Actualizado = models.DateTimeField(auto_now=True, null=True)
-	Visitas = models.IntegerField(default=0)
-	Stt = models.NullBooleanField()
+	titulo = models.CharField(max_length=300, null=False)
+	sumario = models.CharField(max_length=300, blank=True, null=True)
+	editor = models.CharField(max_length=140, blank=True, null=True)
+	contenido = models.TextField(blank=True)
+	cifras = models.TextField(blank=True, null=True)
+	contacto = models.TextField(blank=True, null=True)
+	pieimg1 = models.TextField(blank=True, null=True)
+	pieimg2 = models.TextField(blank=True, null=True)
+	img1 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
+	img2 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
+	imgportada = models.ImageField(upload_to='img/portada/', blank=True, null=True)
+	tipo = models.ForeignKey(TipoArt)
+	orden = models.SmallIntegerField(default=0, null=True)
+	mes = models.SmallIntegerField(blank=True, default=date.today().month)
+	anio = models.SmallIntegerField(blank=True, default=date.today().year)
+	slug = models.SlugField(max_length=255, blank=True, null=True)
+	temas = models.ManyToManyField(Tema)
+	creado = models.DateTimeField(auto_now_add=True, null=True)
+	actualizado = models.DateTimeField(auto_now=True, null=True)
+	visitas = models.IntegerField(default=0, null=True)
+	stt = models.NullBooleanField()
 
 	def save(self, *args, **kwargs):
-		# fecha = date.today()
-		# self.Mes = fecha.month
-		# self.Anio = fecha.year
-		self.Slug = defaultfilters.slugify(self.Titulo)#self.Titulo.lower().replace(' ', '-')
+		self.slug = defaultfilters.slugify(self.titulo)#self.Titulo.lower().replace(' ', '-')
 		super(Articulo, self).save(*args, **kwargs)
 
 	def __unicode__(self):
-		return self.Titulo
+		return self.titulo
 
 
 class TipoBanner(models.Model):
-	Nombre = models.CharField(max_length=50, blank=True)
+	nombre = models.CharField(max_length=50, blank=True)
 
 	def __unicode__(self):
-		return "%i. %s" % (self.id, self.Nombre)
+		return "%i. %s" % (self.id, self.nombre)
 
 
 class Banner(models.Model):
-	Nombre = models.CharField(max_length=50)
-	Alt = models.TextField(blank=True)
-	Img = models.ImageField(upload_to='img/banners/', blank=True, null=True)
-	Tipo = models.ForeignKey(TipoBanner)
-	Creado = models.DateTimeField()
-	Link = models.URLField(blank=True, null=True)
-	Stt = models.BooleanField(default=True)
+	nombre = models.CharField(max_length=50)
+	alt = models.TextField(blank=True)
+	img = models.ImageField(upload_to='img/banners/', blank=True, null=True)
+	tipo = models.ForeignKey(TipoBanner)
+	creado = models.DateTimeField(auto_now_add=True, null=True)
+	link = models.URLField(blank=True, null=True)
+	stt = models.BooleanField(default=True)
 
 	def __unicode__(self):
-		return self.Nombre
+		return self.nombre
+
+
+class Solicitante(models.Model):
+	nombre = models.CharField(max_length=250, blank=True)
+	requisitos = models.TextField(blank=True, null=True)
+	contacto = models.CharField(max_length=250, blank=True, null=True)
+	estado = models.ForeignKey(Estado)
+
+	def __unicode__(self):
+		return self.nombre
+
+
+class Requerimiento(models.Model):
+	solicita = models.ForeignKey(Solicitante)
+	desc = models.TextField(blank=True)
+
+	def __unicode__(self):
+		return self.desc		
+
+
+class Articulo2(models.Model):
+	titulo = models.CharField(max_length=300, null=False)
+	sumario = models.CharField(max_length=300, blank=True, null=True)
+	editor = models.CharField(max_length=140, blank=True, null=True)
+	contenido = models.TextField(blank=True)
+	cifras = models.TextField(blank=True, null=True)
+	contacto = models.TextField(blank=True, null=True)
+	pieimg1 = models.TextField(blank=True, null=True)
+	pieimg2 = models.TextField(blank=True, null=True)
+	img1 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
+	img2 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
+	imgportada = models.ImageField(upload_to='img/portada/', blank=True, null=True)
+	tipo = models.ForeignKey(TipoArt)
+	orden = models.SmallIntegerField(default=0, null=True)
+	mes = models.SmallIntegerField(blank=True, default=date.today().month)
+	anio = models.SmallIntegerField(blank=True, default=date.today().year)
+	slug = models.SlugField(max_length=255, blank=True, null=True)
+	temas = models.ManyToManyField(Tema)
+	creado = models.DateTimeField(auto_now_add=True, null=True)
+	actualizado = models.DateTimeField(auto_now=True, null=True)
+	visitas = models.IntegerField(default=0, null=True)
+	stt = models.NullBooleanField()
+
+	def save(self, *args, **kwargs):
+		self.slug = defaultfilters.slugify(self.titulo)#self.Titulo.lower().replace(' ', '-')
+		super(Articulo, self).save(*args, **kwargs)
+
+	def __unicode__(self):
+		return self.titulo
