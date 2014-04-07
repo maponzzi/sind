@@ -9,7 +9,7 @@ def home(request):
 	fecha = datetime.datetime.now()
 	mes = fecha.month
 	anio = fecha.year
-	mesactual = 3
+	mesactual = mes
 	template = "index.html"
 
 	banners = models.Banner.objects.order_by('pk')
