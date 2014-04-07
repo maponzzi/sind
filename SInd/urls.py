@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'web.views.home', name='home'),
     url(r'^articulo/(?P<slug>[^/]+)/$', views.ArticuloView.as_view(), name='articulo'),
+    url(r'^empresa/$', 'web.views.empresa', name='empresa'),
     # url(r'^SInd/', include('SInd.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

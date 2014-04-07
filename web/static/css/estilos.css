@@ -2,6 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Merriweather+Sans:800);
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:900);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
 
 html, body {
 	margin:0 auto;
@@ -224,9 +225,10 @@ section {
 	.Avance {
 		display: inline-block;
 		height: 200px;
-		margin: 0 1.2em 1.2em 0;
+		margin: 0 1em 1em 0;
+		overflow: hidden;
 		vertical-align: top;
-		width: 250px;
+		width: 260px;
 	}
 
 	.Avances {
@@ -283,13 +285,18 @@ section {
 		width: 11em;
 	}
 
+	.SinImg {
+		color: gray;
+		font-style: italic;
+	}
+
 	.TitArtPort {
 		margin:5px auto;
 	}
 
 	.TitArtPort a {
 		font-family:Tahoma;
-		font-size:18px;
+		font-size:17px;
 		color:#444;
 		font-weight:bold;
 	}
@@ -394,7 +401,35 @@ section {
 			vertical-align: middle;
 			margin-right: -0.25em;	
 		}
-	/*Secciones*/
+		/*Secciones*/
+
+	.BandArticulos {
+		width: 600px;
+		height: 50px;
+		margin: 2em auto 1.3em auto;
+		float: left;
+	}
+
+	.Articulos {
+		border-bottom: thin solid #ddd;
+		border-right: thin solid #ddd;
+		width: 635px;
+		max-height: 570px;
+		overflow: scroll;
+	}
+
+	.Articulo {
+		display: inline-block;
+		margin:0 0.5em 1.2em auto;
+		max-width:210px;
+		min-height:170px;
+		vertical-align: top;
+	}
+
+	.TitArticulo {
+		width:200px;
+		margin-bottom:5px;
+	}
 	
 	.ars {
 		margin:8px auto;
@@ -429,9 +464,6 @@ section {
 		font-size:16px;
 		color:#333;
 	}
-
-
-
 
 	.share {
 		width:290px;
@@ -511,14 +543,6 @@ section {
 		color:#fff
 	}
 
-
-
-
-
-	
-
-
-
 	.lluv {
 		margin:10px auto;
 		display:block;
@@ -562,19 +586,6 @@ section {
 		font-size:15px;
 	}
 
-	.mid{
-		width:660px;
-		margin:35px auto;
-		float:left;
-	}
-
-	.lear{
-		width:700px;
-		height:50px;
-		margin:0 auto 25px;
-		float:left;
-	}
-
 	.every{
 		background-color:#1a65b6;
 		position:relative;
@@ -597,29 +608,11 @@ section {
 		font-weight:bold;
 	}
 
-	.arumW {
-		margin:0 auto 20px;
-		width:220px;
-		height:170px;
-		float:left;
-	}
-
-	.ong{
-		width:190px;
-		margin-bottom:5px;
-	}
-
 	.atopbaner19{
 		font-family:Tahoma;
-		font-size:16px;
+		font-size:1em;
 		color:#444;
 		font-weight:bold;
-		cursor:pointer;
-	}
-
-	.auto{
-		width:190px;
-		height:120px;
 		cursor:pointer;
 	}
 
@@ -660,11 +653,27 @@ section {
 
 
 /*Section 3*/
-	.lear23{
-		width:700px;
+	.ATema1 {
+		display: inline-block;
+		height:200px;
+		margin:0 20px 35px 0;
+		width:300px;
+		vertical-align: top;
+	}
+
+	.BandTema {
+		width:600px;
 		height:50px;
-		margin:0 auto 25px;
+		margin:0 auto 25px auto;
 		float:left;
+	}
+
+	.TitTema {
+		color: #444;
+		font-family: Tahoma;
+		font-size: 1em;
+		font-weight: bold;
+		margin: 0 0 0.4em 0;
 	}
 
 	.every156 {
@@ -684,6 +693,14 @@ section {
 		margin-right: 0.8em;
 		vertical-align: top;
 		width: 800px;
+	}
+
+	.ATema2 {
+		display: inline-block;
+		height:200px;
+		margin:0 auto 20px;
+		width:265px;
+		vertical-align: top;
 	}
 
 	#Pub3 {
@@ -779,6 +796,16 @@ section {
 		margin: 0.5em 0;
 	}
 
+	.Fecha {
+		background:#012060;
+		border-radius:5px 5px 5px 5px;
+		color:#fff;
+		font-family:'Merriweather Sans';
+		font-weight:bold;
+		margin:0 0 0.5em 0;
+		padding: 0.4em 0.65em;	
+	}
+
 	.ImgArticulo {
 		float: right;
 		margin: 1em 0 0.5em 1em;
@@ -791,7 +818,7 @@ section {
 	}
 
 	.ImgArticulo figcaption {
-		color: #012060;
+		color: #999;
 		font-size: 0.85em;
 		margin: 0.4em;
 		text-align: left;
@@ -824,7 +851,39 @@ section {
 	.alumu{width:100%;height:auto;margin:5px auto;float:left;}
 	.atopbaner1500{font-family:'Merriweather Sans';font-size:15px;color:#444;cursor:pointer;}
 	.tere{width:190px;height:auto;}
-/*Interiores*/ 
+/*Interiores*/
+
+/*Empresa*/
+	h1.Empresa {
+		color:#444;
+		font-family: "Source Sans Pro";
+		font-size: 2.5em;
+		font-weight: normal;
+		text-align: center;
+	}
+
+	.ImgEmpresa {
+		display: inline-block;
+		margin: 0 0 0 1em;
+		vertical-align: top;
+		width: 28%;
+	}
+
+	.ImgEmpresa img {
+		box-shadow:0px 1px 4px 1px #aaa;
+		width: 100%;
+	}
+
+	.TextoEmpresa {
+		color: #555;
+		display: inline-block;
+		font-family: Tahoma;
+		font-size: 1.2em;
+		text-align: justify;
+		vertical-align: top;
+		width: 68%;
+	}
+/*Empresa*/
 
 
 

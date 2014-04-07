@@ -109,35 +109,4 @@ class Requerimiento(models.Model):
 	desc = models.TextField(blank=True)
 
 	def __unicode__(self):
-		return self.desc		
-
-
-class Articulo2(models.Model):
-	titulo = models.CharField(max_length=300, null=False)
-	sumario = models.CharField(max_length=300, blank=True, null=True)
-	editor = models.CharField(max_length=140, blank=True, null=True)
-	contenido = models.TextField(blank=True)
-	cifras = models.TextField(blank=True, null=True)
-	contacto = models.TextField(blank=True, null=True)
-	pieimg1 = models.TextField(blank=True, null=True)
-	pieimg2 = models.TextField(blank=True, null=True)
-	img1 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
-	img2 = models.ImageField(upload_to='img/notas/', blank=True, null=True)
-	imgportada = models.ImageField(upload_to='img/portada/', blank=True, null=True)
-	tipo = models.ForeignKey(TipoArt)
-	orden = models.SmallIntegerField(default=0, null=True)
-	mes = models.SmallIntegerField(blank=True, default=date.today().month)
-	anio = models.SmallIntegerField(blank=True, default=date.today().year)
-	slug = models.SlugField(max_length=255, blank=True, null=True)
-	temas = models.ManyToManyField(Tema)
-	creado = models.DateTimeField(auto_now_add=True, null=True)
-	actualizado = models.DateTimeField(auto_now=True, null=True)
-	visitas = models.IntegerField(default=0, null=True)
-	stt = models.NullBooleanField()
-
-	def save(self, *args, **kwargs):
-		self.slug = defaultfilters.slugify(self.titulo)#self.Titulo.lower().replace(' ', '-')
-		super(Articulo, self).save(*args, **kwargs)
-
-	def __unicode__(self):
-		return self.titulo
+		return self.desc

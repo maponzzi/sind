@@ -7,13 +7,12 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
 	<link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %}" />
-	<link rel="stylesheet" type="text/css" href="{% static "css/slides.css" %}" />
 	<link rel="stylesheet" type="text/css" href="/static/css/devestilos.css" />
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static "js/prefixfree.min.js" %}"></script>
 
-	<title>{{ articulo.0.Titulo }}</title>
+	<title>{{ articulo.0.titulo }}</title>
 
 </head>
 <body>
@@ -22,8 +21,8 @@
 	<header>
 		<div class="BannerTop">
 		{% for banner in banners %}
-			{% if banner.Tipo.id == 6 %}
-				<a href="{{ banner.Link }}"><img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="BannerTopImg" /></a>
+			{% if banner.tipo.id == 6 %}
+				<a href="{{ banner.link }}"><img src="{{ banner.img.url }}" alt="{{ banner.alt }}" class="BannerTopImg" /></a>
 			{% endif %}
 		{% endfor %}
 		</div>
@@ -92,8 +91,8 @@
 	</section>
 
 	<section id="SecArtDer" class="">
-		<div class="Temas">
-			{{ articulo.0.creado|date:"F Y" }}
+		<div class="Fecha">
+			{{ fecha.miFecha|date:"F Y" }}
 		</div>
 		{% for tema in articulo.0.temas.all %}
 			<div class="Temas">

@@ -10,3 +10,6 @@ SInd/settings.py*
 
 */migrations/
 
+dump.rdb
+
+*/static/

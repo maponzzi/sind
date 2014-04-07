@@ -68,47 +68,62 @@
 		</div>
 
 		<div class="ColSec Sec1Col1">
-			{% for port in articulos %}
-				{% if port.tipo.id == 1 %}
-					<article class="sub">
-						<a class="atopbaner" href="{% url "articulo" port.slug %}">
-							{{ port.titulo }}
-						</a>
-						<div class="Anuncios">
-							<a class="AnunciosCon">
-								{{ port.sumario }}
-							</a>
-						</div>
-						<div class="especialh2">
-							<a href="{% url "articulo" port.slug %}">
-								<img src="{{ port.imgportada.url }}" alt="{{ port.titulo }}" />
-							</a>
-						</div>
-					</article>
-				{% endif %}
-			{% endfor %}
+		{% for port in portada %}
+			<article class="sub">
+				<a class="atopbaner" href="{% url "articulo" port.slug %}">
+					{{ port.titulo }}
+				</a>
+				<div class="Anuncios">
+					<a class="AnunciosCon">
+						{{ port.sumario }}
+					</a>
+				</div>
+				<div class="especialh2">
+					<a href="{% url "articulo" port.slug %}">
+						<img src="{{ port.imgportada.url }}" alt="{{ port.titulo }}" />
+					</a>
+				</div>
+			</article>
+		{% endfor %}
 			
 			<section class="Avances">
-			{% for avance in articulos %}
-				{% if avance.tipo.id == 2 %}
-				<article class="Avance">
-					<div class="TitArtPort">
-						<a href="{% url "articulo" avance.slug %}">
-							{{ avance.titulo }}
-						</a>
-					</div>
+				<ul class="ravances">
+				{% for avance in avances %}
+					{% if forloop.counter = 1 %}
+						<li>
+					{% elif forloop.counter = 5 %}
+						<li>
+					{% elif forloop.counter = 9 %}
+						<li>
+					{% endif %}
 
-					{% thumbnail avance.img1.url "250x140" crop="center" as im %}
-						<a href="{% url "articulo" avance.slug %}">
-							<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ avance.pieimg1 }}" />
-						</a>
-					{% empty %}
-						<p>Imagen no disponible</p>
-					{% endthumbnail %}
-				</article>
-				{% endif %}
-			{% endfor %}
-			</div>
+					<article class="Avance">
+						<div class="TitArtPort">
+							<a href="{% url "articulo" avance.slug %}">
+								{{ avance.titulo }}
+							</a>
+						</div>
+
+						{% thumbnail avance.img1 "250x140" crop="center" as im %}
+							<a href="{% url "articulo" avance.slug %}">
+								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ avance.pieimg1 }}" />
+							</a>
+						{% empty %}
+							<p class="SinImg">Imagen no disponible</p>
+						{% endthumbnail %}
+					</article>
+
+					{% if forloop.counter = 4 %}
+						</li>
+					{% elif forloop.counter = 8 %}
+						</li>
+					{% elif forloop.counter = 12 %}
+						</li>
+					{% endif %}
+				{% endfor %}
+				</ul>
+				<div id="NavAvances"></div>
+			</section>
 		</div>
 
 		<div class="ColSec Sec1Col2">
@@ -128,15 +143,15 @@
 
 		<div class="ColSec Sec1Col3">
 			<div class="ContPub1">
-				{% for banner in banners %}
-					{% if banner.tipo.id == 3 %}
-						<div class="BannerPub1">
-							<a href="{{ banner.link }}">
-								<img src="{{ banner.img.url }}" alt="{{ banner.alt }}" />
-							</a>
-						</div>
-					{% endif %}
-				{% endfor %}
+			{% for banner in banners %}
+				{% if banner.tipo.id == 3 %}
+					<div class="BannerPub1">
+						<a href="{{ banner.link }}">
+							<img src="{{ banner.img.url }}" alt="{{ banner.alt }}" />
+						</a>
+					</div>
+				{% endif %}
+			{% endfor %}
 			</div>
 
 			<div class="ramT">
@@ -178,102 +193,62 @@
 				{% endfor %}
 				</div>
 
-				{% for seccion in secciones %}
-					<div id="C{{ seccion.tipo.nombre|slugify }}" class="InfSeccion" {% if forloop.first %}style="display:block"{% endif %}>
-						<div class="lluv" id="Ic1">
-							<a href="{% url "articulo" seccion.slug %}" class="atopbaner2">
-								{{ seccion.titulo }}
-							</a>
-						</div>
-						<div class="luc">
-						{% thumbnail seccion.img1.url "250x140" crop="center" as im %}
-							<a href="{% url "articulo" seccion.slug %}">
-								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ seccion.pieimg1 }}" />
-							</a>	
-						{% empty %}
-							<p>Imagen no disponible</p>
-						{% endthumbnail %}
-						</div>
-						<div class="sk">
-							<a class="AnunciosCon2">
-								{{ seccion.contenido|truncatewords:"30" }}
-							</a>
-						</div>
+			{% for seccion in secciones %}
+				<div id="C{{ seccion.tipo.nombre|slugify }}" class="InfSeccion" {% if forloop.first %}style="display:block"{% endif %}>
+					<div class="lluv" id="Ic1">
+						<a href="{% url "articulo" seccion.slug %}" class="atopbaner2">
+							{{ seccion.titulo }}
+						</a>
 					</div>
-				{% endfor %}
+					<div class="luc">
+					{% thumbnail seccion.img1 "250x140" crop="center" as im %}
+						<a href="{% url "articulo" seccion.slug %}">
+							<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ seccion.pieimg1 }}" />
+						</a>	
+					{% empty %}
+						<p class="SinImg">Imagen no disponible</p>
+					{% endthumbnail %}
+					</div>
+					<div class="sk">
+						<a class="AnunciosCon2">
+							{{ seccion.contenido|truncatewords:"30" }}
+						</a>
+					</div>
+				</div>
+			{% endfor %}
 			</div>
 
-			<div class="mid" id="Aski01">
-				<div class="lear">
-					<img src="{% static "img/L4.jpg" %}" alt="Somos Industria" class="surv2" />
-					<div class="every">
-						<div class="break">
-							<a class="guru4">
-								Articulos
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="arumW">
-					<div class="ong">
-						<a class="atopbaner19">
-							Invierte DENSO 51 mdd en ampliación
+			<div class="BandArticulos">
+				<img src="{% static "img/L4.jpg" %}" alt="Somos Industria" class="surv2" />
+				<div class="every">
+					<div class="break">
+						<a class="guru4">
+							Articulos
 						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Denso.jpg" class="auto" alt="Art1">
-				</div>
-				<div class="arumW">
-					<div class="ong">
-						<a class="atopbaner19">
-							Invierte Mondeléz Internacional 600 mdd
-						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Interpuerto.jpg" class="auto" alt="Art1">
-				</div>
-				<div class="arumW">
-					<div class="ong">
-						<a class="atopbaner19">
-							Anuncian inversión Europea en Querétaro
-						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Apoyo%20Aeronautico.jpg" class="auto" alt="Art1">
-				</div>
-				<div class="arumW">
-					<div class="ong">
-						<a class="atopbaner19">
-							Invierte Tisamatic 65 mdd
-						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Tisamatic.jpg" class="auto" alt="Art1" />
-				</div>
-				<div class="arumW">
-					<div class="ong">
-						<a class="atopbaner19">
-							Colocan primera piedra del segundo edificio ‘SPEC CDR II’
-						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Marabis.jpg" class="auto" alt="Art1">
-				</div>
-				<div class="arumW">
-					<div class="ong">
-						<a class="atopbaner19">
-							Estrechan relaciones comerciales y de inversión
-						</a>
-					</div>
-					<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Mexico-Portugal.jpg" class="auto" alt="Art1">
-				</div>
-			</div>
-			<div class="rust">
-				<div class="arubis" id="Aski0">
-					<div class="rama">
-						<div class="profe">
-							<a class="rama3">
-								Mas Artículos
-							</a>
-						</div>
 					</div>
 				</div>
 			</div>
+
+			<section class="Articulos">
+			{% for art in articulos %}
+				<article class="Articulo">
+					<div class="TitArticulo">
+						<a href="{% url "articulo" art.slug %}" class="atopbaner19">
+							{{ art.titulo }}
+						</a>
+					</div>
+					{% thumbnail art.img1 "200x120" crop="center" as im %}
+						<figure>
+							<a href="{% url "articulo" art.slug %}">
+								<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ art.pieimg1 }}" />
+							</a>
+						</figure>
+					{% empty %}
+						<p class="SinImg">Imagen no disponible</p>
+					{% endthumbnail %}
+				</article>
+			{% endfor %}
+			</section>
 		</div>
 	</section>
 
@@ -289,21 +264,6 @@
 					</div>
 				{% endif %}
 			{% endfor %}
-				<!-- <div class="bug">
-					<img src="http://www.somosindustria.com/Imagenes/Clientes/Suntak.jpg" alt="Publicidad Media1" class="lu">
-				</div>
-				<div class="bug">
-					<img src="http://www.somosindustria.com/Imagenes/Clientes/rvm.jpg" alt="Publicidad Media2" class="lu">
-				</div>
-				<div class="bug">
-					<img src="http://www.somosindustria.com/Imagenes/Clientes/tmr.jpg" alt="Publicidad Media3" class="lu">
-				</div>
-				<div class="bug">
-					<img src="http://www.somosindustria.com/Imagenes/Clientes/BanerAOC3.jpg" alt="Publicidad Media4" class="lu">
-				</div>
-				<div class="bug">
-					<img src="http://somosindustria.com/Imagenes/Clientes/Promexico.gif" alt="Publicidad Media5" class="lu">
-				</div> -->
 			</div>
 			<div class="dongo">
 				<div class="papa">
@@ -335,7 +295,7 @@
 	</aside>
 
 	<section id="Sec3">
-		<div class="lear23">
+		<div class="BandTema">
 			<img src="{% static "img/L6.jpg" %}" alt="Somos Industria" class="surv2" />
 			<div class="every156">
 				<div class="break">
@@ -345,7 +305,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="arumX">
+
+		<section class="Tematicos">
+		{% for art in tema1 %}
+			<article class="ATema1">
+				<div class="TitTema">
+					<a href="{% url "articulo" art.slug %}">
+						{{ art.titulo }}
+					</a>
+				</div>
+				{% thumbnail art.img1 "290x160" crop="center" as im %}
+					<figure>
+						<a href="{% url "articulo" art.slug %}">
+							<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ art.pieimg1 }}" />
+						</a>
+					</figure>
+				{% empty %}
+					<p class="SinImg">Imagen no disponible</p>
+				{% endthumbnail %}
+			</article>
+		{% endfor %}
+		</section>
+
+		<!-- <div class="arumX">
 			<div class="ong2">
 				<a class="atopbaner49">
 					Empresa promueven la arquitectura LEED
@@ -392,22 +374,42 @@
 				</a>
 			</div>
 			<img src="http://www.somosindustria.com/Imagenes/AGOSTO13/Interiores/Herramental.jpg" class="auto2" alt="Art1" />
-		</div>
+		</div> -->
 	</section>
 
 	<section id="Sec4">
-		<div class="lear">
+		<div class="BandTema">
 			<img src="{% static "img/L5.jpg" %}" alt="Somos Industria" class="surv2" />
 			<div class="every8">
 				<div class="break">
 					<a class="guru4">
-						Información
+						Negocios
 					</a>
 				</div>
 			</div>
 		</div>
+
+		<section class="Tematicos">
+		{% for art in tema2 %}
+			<article class="ATema2">
+				<div class="TitTema">
+					<a href="{% url "articulo" art.slug %}">
+						{{ art.titulo }}
+					</a>
+				</div>
+
+				{% thumbnail art.img1 "250x150" crop="center" as im %}
+					<figure>
+						<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="art.pieimg1" />
+					</figure>
+				{% empty %}
+					<p class="SinImg">Imagen no disponible</p>
+				{% endthumbnail %}
+			</article>
+		{% endfor %}
+		</section>
 			
-		<div class="moon">
+		<!-- <div class="moon">
 			<div class="lorien">
 				<a class="atopbaner19">
 					Realizan Encuentro de Negocios
@@ -478,54 +480,19 @@
 				</a>
 			</div>
 			<img src="http://somosindustria.com/Imagenes/AGOSTO13/Interiores/eriac.jpg" class="cryp" alt="Art1" />
-		</div>	
+		</div> -->
 	</section>
 
 	<aside id="Pub3">
 		{% for banner in banners %}
 			{% if banner.tipo.id == 5 %}
 				<div>
-					<a href="banner.Link">
-						<img src="{{ banner.Img.url }}" alt="{{ banner.Alt }}" class="alu" />
+					<a href="banner.link">
+						<img src="{{ banner.img.url }}" alt="{{ banner.alt }}" class="alu" />
 					</a>
 				</div>
 			{% endif %}
 		{% endfor %}
-<!-- 		<div>
-			<a href="#">
-				<img src="http://www.somosindustria.mx/Ufo/Prozone.jpg" alt="P1" class="alu" />
-			</a>
-		</div>
-		<div>
-			<a href="#">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/Banner_MFM.gif" alt="P1" class="alu" />
-			</a>
-		</div>
-		<div>
-			<a href="#">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/Citius.jpg" alt="P1" class="alu" />
-			</a>
-		</div>
-		<div>
-			<a href="#">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/Hamton.jpg" alt="P1" class="alu" />
-			</a>
-		</div>
-		<div>
-			<a href="#">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/Aspe.jpg" alt="P1" class="alu" />
-			</a>
-		</div>
-		<div>
-			<a href="#">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/Rios-Corrugadora.jpg" alt="P1" class="alu" />
-			</a>
-		</div>
-		<div>
-			<a href="#">
-				<img src="http://www.somosindustria.com/Imagenes/Clientes/Basculas.jpg" alt="P1" class="alu" />
-			</a>
-		</div> -->
 	</aside>
 
 	{% include 'footer.html' %}

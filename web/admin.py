@@ -5,10 +5,14 @@ from models import *
 
 
 class ArticuloAdmin(admin.ModelAdmin):
-	list_display = ('titulo', 'tipo', 'mes', 'anio', 'creado', 'actualizado')
+	list_display = ('titulo', 'tipo', 'mes', 'anio', 'orden', 'img1', 'actualizado')
 	list_filter = ('tipo', 'tipo__sub')
 	exclude = ('slug', 'visitas',)
 	filter_horizontal = ('temas',)
+
+
+class BannerAdmin(admin.ModelAdmin):
+	list_display = ('nombre', 'tipo', 'img', 'link')
 
 
 admin.site.register(Estado)
@@ -17,6 +21,6 @@ admin.site.register(Tema)
 admin.site.register(TipoArt)
 admin.site.register(Articulo, ArticuloAdmin)
 admin.site.register(TipoBanner)
-admin.site.register(Banner)
+admin.site.register(Banner, BannerAdmin)
 admin.site.register(Solicitante)
 admin.site.register(Requerimiento)

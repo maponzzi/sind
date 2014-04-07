@@ -1,0 +1,64 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="es" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %}" />
+
+	<script type="text/javascript" src="{% static "js/prefixfree.min.js" %}"></script>
+	<title>Empresa</title>
+</head>
+<body>
+
+	{% include 'fb.html' %}
+
+	<header>
+		<div class="BannerTop">
+		{% for banner in banners %}
+			{% if banner.tipo.id == 6 %}
+				<a href="{{ banner.link }}"><img src="{{ banner.img.url }}" alt="{{ banner.alt }}" class="BannerTopImg" /></a>
+			{% endif %}
+		{% endfor %}
+		</div>
+
+		{% include 'logo.html' %}
+	</header>
+
+	{% include 'menu.html' %}
+
+	<h1 class="Empresa">Sobre Nosotros</h1>
+
+	<section>
+		<div class="TextoEmpresa">
+			<p>
+				Somos Industria, es el medio de comunicación de corte industrial que mes con mes informa sobre las ventajas competitivas del sector al que usted y nosotros pertenecemos; al sector industrial.
+			</p>
+
+			<p>
+				En sus páginas se promueve la infraestructura, proveeduría, mano de obra calificada, inversiones y áreas de crecimiento en Monterrey y su área Metropolitana, Saltillo, Ramos Arizpe, Querétaro, Nuevo Laredo, San Luis Potosí, Celaya, Irapuato, Silao, León y Estado de México.
+			</p>
+
+			<p>
+				Somos Industria, ofrece información relevante a todos los sectores y giros industriales para colaborar con ellos en su crecimiento y conocimiento de la ciudad a la que pertenece.
+			</p>
+
+			<p>
+				El contenido de nuestro medio se dirige a todos los niveles de la estructura organizacional, tanto a directores generales, gerentes generales, de recursos humanos, import-export, compras, finanzas, calidad, materiales, seguridad, mantenimiento y medio ambiente, entre otros, así como a operadores y supervisores.
+			</p>
+
+			<p>
+				Ampliando Horizontes. Somos Industria distribuirá mensualmente 40,000 ejemplares de manera gratuita a las organizaciones industriales y a sus directivos y jefes de departamentos; a los lobbies de industrias en parques industriales; en el interior de plantas; en negocios; oficinas de gobierno y exposiciones; restaurantes y hoteles; y en grupos desarrolladores de parques industriales ubicados en los municipios de Monterrey y su área Metropolitana, incluyendo Ciénega de Flores, Salinas Victoria, Saltillo, Ramos Arizpe, Querétaro, Nuevo Laredo, San Luis Potosí, Celaya, Irapuato, Silao, León y Estado de México.
+			</p>
+		</div>
+
+		<figure class="ImgEmpresa">
+			<img src="http://somosindustria.com/imagenes/MARZO14/Flippingbook/BAJA/SomIndMar1.jpg">
+		</figure>
+	</section>
+
+	{% include 'footer.html' %}
+</body>
+</html>
