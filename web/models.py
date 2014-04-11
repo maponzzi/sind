@@ -8,6 +8,11 @@ from sorl.thumbnail import ImageField
 class Estado(models.Model):
 	nombre = models.CharField(max_length=140, blank=True, null=True)
 	color = models.CharField(max_length=10, blank=True)
+	slug = models.SlugField(max_length=50, blank=True)
+
+	def save(self, *args, **kwargs):
+		self.slug = defaultfilters.slugify(self.nombre)
+		super(Estado, self).save(*args, **kwargs)
 
 	def __unicode__(self):
 		return self.nombre

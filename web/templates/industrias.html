@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="/static/css/devestilos.css" />
 
 	<script type="text/javascript" src="{% static "js/prefixfree.min.js" %}"></script>
-	<title>Se buscan Proveedores</title>
+	<title>Nuevas Industrias</title>
 </head>
 <body>
 
@@ -30,13 +30,13 @@
 
 	{% include 'menu.html' %}
 
-	<h1 class="Encabezado">Se buscan Proveedores</h1>
+	<h1 class="Encabezado">Llegada de nuevas empresas, expansiones y reubicaciones</h1>
 
 	<section class="Estados">
 	{% for edo in estados %}
 		{% if edo.slug == slug %}
 			<div class="Estado" style="border-color:{{ edo.color }};border-bottom:2px solid {{edo.color }};">
-				<a href="{% url "proveedores" edo.slug %}">
+				<a href="{% url "industrias" edo.slug %}">
 					<strong>
 						{{ edo.nombre }}
 					</strong>
@@ -44,7 +44,7 @@
 			</div>
 		{% else %}
 			<div class="Estado" style="border-color:{{ edo.color }};">
-				<a href="{% url "proveedores" edo.slug %}">
+				<a href="{% url "industrias" edo.slug %}">
 					{{ edo.nombre }}
 				</a>
 			</div>
@@ -52,35 +52,18 @@
 	{% endfor %}
 	</section>
 
-	<section class="Requerimientos">
-	{% for empresa in solicitantes %}
-		<article class="Solicitud">
-			<div class="Solicitante">
-				Empresa: <span>{{ empresa.nombre }}</span>
-				<br>
-				Requiere:
-			</div>
-			
-			<ul>
-			{% for req in requerimientos %}
-				{% if req.solicita.id == empresa.id %}
-					<li>{{ req.desc }}</li>
-				{% endif %}
-			{% endfor %}
-			</ul>
-			
-			{% if empresa.requisitos %}
-				<div class="Solicitante">
-					Requisitos: <span>{{ empresa.requisitos }}</span>
-				</div>
-			{% endif %}
+	<h3 class="">
+		Cierres de contrato de bienes inmobiliarios industriales en <span class="NomEdo"> {{  }}</span>
+	</h3>
 
-			<div class="Solicitante">
-				Contacto: <a href="mailto:proveedores@somosindustria.com">proveedores@somosindustria.com</a>
-			</div>
-		</article>
-	{% endfor %}
+	<div class="fechas">
+		Consulta por fecha: 
+	</div>
+
+	<section class="industrias">
+		
 	</section>
+
 
 	{% include 'footer.html' %}
 </body>

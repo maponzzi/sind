@@ -1,0 +1,40 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="es" xmlns:fb="http://ogp.me/ns/fb#">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+	<link rel="stylesheet" type="text/css" href="{% static "css/normalize.css" %}" />
+	<link rel="stylesheet" type="text/css" href="{% static "css/estilos.css" %}" />
+
+	<script type="text/javascript" src="{% static "js/prefixfree.min.js" %}"></script>
+	<title>Se buscan Proveedores</title>
+</head>
+<body>
+
+	{% include 'fb.html' %}
+
+	<header>
+		<div class="BannerTop">
+		{% for banner in banners %}
+			{% if banner.tipo.id == 6 %}
+				<a href="{{ banner.link }}"><img src="{{ banner.img.url }}" alt="{{ banner.alt }}" class="BannerTopImg" /></a>
+			{% endif %}
+		{% endfor %}
+		</div>
+
+		{% include 'logo.html' %}
+	</header>
+
+	{% include 'menu.html' %}
+
+	<h1 class="Encabezado">Se buscan Proveedores</h1>
+
+	<section>
+		
+	</section>
+
+	{% include 'footer.html' %}
+</body>
+</html>

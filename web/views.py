@@ -9,7 +9,7 @@ def home(request):
 	fecha = datetime.datetime.now()
 	mes = fecha.month
 	anio = fecha.year
-	mesactual = mes
+	mesactual = 3
 	template = "index.html"
 
 	banners = models.Banner.objects.order_by('pk')
@@ -22,7 +22,7 @@ def home(request):
 	tema1 = models.Articulo.objects.filter(temas=1).exclude(mes=mesactual, anio=anio).exclude(tipo__sub=4, stt=True).order_by('-anio', '-mes')[:6]
 	tema2 = models.Articulo.objects.filter(temas=5).exclude(mes=mesactual, anio=anio).exclude(tipo__sub=4, stt=True).order_by('-anio', '-mes')[:6]
 
-	Principal = {"banners": banners, }
+	#Principal = {"banners": banners, }
 	return render(request, template, locals())
 
 
@@ -37,6 +37,39 @@ class ArticuloView(TemplateView):
 
 		context['articulo'] = miArticulo
 		context['fecha'] = {'miFecha': miFecha}
+		return context
+
+
+class IndustriasView(TemplateView):
+	model = models.Industria
+	model1 = models.Estado
+	template_name = "industrias.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(IndustriasView, self).get_context_data(**kwargs)
+		industrias = self.model.objects.filter(edo__slug=context['slug']).order_by('-anio')
+		estados = self.model1.objects.all()
+
+		context['industrias'] = industrias
+		context['estados'] = estados
+		return context
+
+
+class ProveedoresView(TemplateView):
+	model1 = models.Solicitante
+	model2 = models.Requerimiento
+	model3 = models.Estado
+	template_name = "proveedores.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(ProveedoresView, self).get_context_data(**kwargs)
+		solicitantes = self.model1.objects.filter(estado__slug=context['slug'])
+		requerimientos = self.model2.objects.filter(solicita__estado__slug=context['slug'])
+		estados = self.model3.objects.all().order_by('pk')
+
+		context['solicitantes'] = solicitantes
+		context['requerimientos'] = requerimientos
+		context['estados'] = estados
 		return context
 
 

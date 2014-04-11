@@ -15,7 +15,11 @@ class BannerAdmin(admin.ModelAdmin):
 	list_display = ('nombre', 'tipo', 'img', 'link')
 
 
-admin.site.register(Estado)
+class EstadoAdmin(admin.ModelAdmin):
+	exclude = ('slug',)
+
+
+admin.site.register(Estado, EstadoAdmin)
 admin.site.register(Industria)
 admin.site.register(Tema)
 admin.site.register(TipoArt)

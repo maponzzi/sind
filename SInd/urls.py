@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     url(r'^$', 'web.views.home', name='home'),
     url(r'^articulo/(?P<slug>[^/]+)/$', views.ArticuloView.as_view(), name='articulo'),
     url(r'^empresa/$', 'web.views.empresa', name='empresa'),
+    url(r'^se-buscan-proveedores/(?P<slug>[^/]+)/$', views.ProveedoresView.as_view(), name="proveedores"),
+    url(r'^nuevas-industrias/(?P<slug>[^/]+)/$', views.IndustriasView.as_view(), name="industrias"),
     # url(r'^SInd/', include('SInd.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
