@@ -46,10 +46,14 @@ class IndustriasView(TemplateView):
 	template_name = "industrias.html"
 
 	def get_context_data(self, **kwargs):
+		fecha = datetime.datetime.now()
+		anio = fecha.year
+		mirango = range(2009, anio) #[2009, 2010, 2011]
 		context = super(IndustriasView, self).get_context_data(**kwargs)
-		industrias = self.model.objects.filter(edo__slug=context['slug']).order_by('-anio')
+		industrias = self.model.objects.filter(edo__slug=context['slug']).order_by('-anio', 'id')
 		estados = self.model1.objects.all()
 
+		context['anios'] = mirango
 		context['industrias'] = industrias
 		context['estados'] = estados
 		return context

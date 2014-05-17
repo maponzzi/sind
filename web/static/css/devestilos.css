@@ -1,8 +1,70 @@
+.EncNI {
+	display: table-row;
+	margin:10px 5px 0px;
+	padding:15px 0px 0px 8px;
+	width:970px;
+}
 
+.NIAnio {
+	background:#0B63CE;
+	font-family:Tahoma;
+	font-size:1.4em;
+	color:#fff;
+	text-align:center;
+}
 
+.LAnio {
+	border-radius:5px;
+	display: inline-block;
+	font-size: 1.5em;
+	margin: 0 0.4em;
+	padding: 0.3em 1em;
+	vertical-align: top;
+}
 
+.charro{font-family:Tahoma;font-size:23px;color:#fff;margin:0px 5px;width:82px;height:38px;float:left;padding:5px 5px 0px 5px;text-align:center;background:#0B63CE;border-radius:5px;}
 
+.NITitCol {
+	color:#000;
+	display: table-cell;
+	font-family:Open Sans;
+	font-size:14px;
+	font-weight:bold;
+	height:50px;
+	padding-top:10px;
+	text-align:center;
+	vertical-align: top;
+	width:140px;
+}
 
+.NIRenglon {
+	display: table-row;
+}
+
+.NIRenglon:nth-child(odd) {
+	background: #eee;
+}
+
+.NIRenglon:nth-child(odd) div {
+	border:1px #fff solid;
+}
+
+.NICelda {
+	color:#000;
+	border:1px #EEE solid;
+	display: table-cell;
+	font-family:Open Sans;
+	font-size:14px;
+	height:75px;
+	padding-top:10px;
+	text-align:center;
+	width:140px;
+}
+
+.feels{
+	
+}
+.anya{}
 
 /*Testeo*/
 .brojo {

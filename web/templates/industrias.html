@@ -53,15 +53,81 @@
 	</section>
 
 	<h3 class="">
-		Cierres de contrato de bienes inmobiliarios industriales en <span class="NomEdo"> {{  }}</span>
+		Cierres de contrato de bienes inmobiliarios industriales en <span class="NomEdo"> {{ industrias.0.edo.nombre }}</span>
 	</h3>
 
 	<div class="fechas">
-		Consulta por fecha: 
+		Consulta por fecha:
+		{% for anio in anios reversed %}
+			<div class="NIAnio LAnio">
+				<a href="#{{ anio }}">{{ anio }}</a>
+			</div>
+		{% endfor %}
 	</div>
 
 	<section class="industrias">
-		
+		<div class="EncNI">
+			<div class="NITitCol">
+				Nombre de la Empresa
+			</div>
+			<div class="NITitCol">
+				Locación
+			</div>
+			<div class="NITitCol">
+				Submercado
+			</div>
+			<div class="NITitCol">
+				Superficie (ft²)
+			</div>
+			<div class="NITitCol">
+				Giro
+			</div>
+			<div class="NITitCol">
+				Origen
+			</div>
+			<div class="NITitCol">
+				Nueva/Expansión/<br />Reubicación
+			</div>
+		</div>
+
+
+		{% for industria in industrias %}
+			{% ifchanged industria.anio %}
+				<div class="NIAnio">
+					<a name="{{ industria.anio }}"></a>
+					{{ industria.anio }}
+				</div>
+			{% endifchanged %}
+			<div class="NIRenglon">
+				<div class="NICelda">
+					{{ industria.empresa }}
+				</div>
+
+				<div class="NICelda">
+					{{ industria.locacion }}
+				</div>
+
+				<div class="NICelda">
+					{{ industria.cd }}
+				</div>
+
+				<div class="NICelda">
+					{{ industria.superficie }}
+				</div>
+
+				<div class="NICelda">
+					{{ industria.sector }}
+				</div>
+
+				<div class="NICelda">
+					{{ industria.origen }}
+				</div>
+
+				<div class="NICelda">
+					{{ industria.tipo }}
+				</div>
+			</div>
+		{% endfor %}
 	</section>
 
 

@@ -27,12 +27,12 @@ class Industria(models.Model):
 	superficie = models.IntegerField(blank=True, null=True)
 	sector = models.CharField(max_length=60, blank=True, null=True)
 	origen = models.CharField(max_length=60, blank=True, null=True)
-	Tipo = models.CharField(max_length=30, blank=True, null=True)
+	tipo = models.CharField(max_length=30, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.empresa
 
-
+		
 class Tema(models.Model):
 	nombre = models.CharField(max_length=140, blank=True)
 
